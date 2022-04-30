@@ -1,6 +1,7 @@
 export const INPUT_LOGIN = 'INPUT_LOGIN';
 export const INPUT_CURRENCIES = 'INPUT_CURRENCIES';
 export const INPUT_WALLET = 'INPUT_WALLET';
+export const REMOVE_INPUT_WALLET = 'REMOVE_INPUT_WALLET';
 
 export function saveLogin(email, password) {
   return {
@@ -27,5 +28,12 @@ export function saveWallet(obj) {
     tag: obj.tag,
     description: obj.description,
     exchangeRates: obj.exchangeRates,
+  };
+}
+
+export function removeWallet(expenses, id) {
+  return {
+    type: REMOVE_INPUT_WALLET,
+    expenses: expenses.filter((expense) => expense.id !== id),
   };
 }
