@@ -1,4 +1,4 @@
-import { INPUT_CURRENCIES, INPUT_WALLET } from '../actions';
+import { INPUT_CURRENCIES, INPUT_WALLET, REMOVE_INPUT_WALLET } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -29,6 +29,11 @@ function wallet(state = INITIAL_STATE, action) {
             exchangeRates: action.exchangeRates,
           },
         ],
+    };
+  case REMOVE_INPUT_WALLET:
+    return {
+      ...state,
+      expenses: action.expenses,
     };
 
   default:
