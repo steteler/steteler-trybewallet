@@ -1,8 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { removeWallet } from '../actions';
 
 class WalletTable extends React.Component {
+  constructor() {
+    super();
+
+    this.remove = this.remove.bind(this);
+  }
+
+  remove({ target }) {
+    const { expenses, dispatch } = this.props;
+    dispatch(removeWallet(expenses, Number(target.id)));
+  }
+
   render() {
     const { expenses } = this.props;
     return (
@@ -37,7 +49,16 @@ class WalletTable extends React.Component {
                     {(Number(value) * Number(exchangeRates[currency].ask)).toFixed(2)}
                   </td>
                   <td>Real</td>
-                  <td><input type="button" value="Excluir" /></td>
+                  <td>
+                    <input
+                      type="button"
+                      value="Excluir"
+                      id={ id }
+                      onClick={ this.remove }
+                      data-testid="delete-btn"
+                    />
+
+                  </td>
                 </tr>
               ),
             )
@@ -50,6 +71,7 @@ class WalletTable extends React.Component {
 
 WalletTable.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.any).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 function mapStateToProps({ wallet }) {
